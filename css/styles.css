@@ -1,0 +1,161 @@
+@import url('https://fonts.googleapis.com/css2?family=Permanent+Marker&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Handjet:wght@100..900&display=swap');
+
+* {
+    margin: 0 auto;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    display: flex;
+    font-family: Arial, sans-serif;
+    height: 100vh;
+    background: linear-gradient(to bottom,rgba(0, 133, 138, 0.568), rgba(0, 220, 228, 0.568));
+    align-items: center;
+}
+
+h1 {
+    font-family: "Permanent Marker";
+    font-weight: 400;
+    font-style: normal;
+    margin-top: 30px;
+    margin-bottom: 30px;
+}
+
+.page-title {
+    margin-top: 15%;
+    margin-bottom: 15%;
+}
+
+.body-content {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    font-family: Arial, sans-serif;
+    height: 98%;
+    width: 100%;
+
+}
+
+header, main {
+    min-width: 300px;
+    max-width: 500px;
+
+}
+
+header {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 5px;
+
+
+    margin-top: 10px;
+    width: 96%;
+}
+
+.bt-menu-header {
+    font-family: "Permanent Marker";
+    font-weight: 400;
+    font-style: normal;
+    color: black;
+    background: linear-gradient(to bottom,rgba(123, 206, 209, 0.849),rgba(73, 201, 206, 0.568));
+    text-align: center;
+    align-content: center;
+    width: 100%;
+    height: 100%;
+    height: 40px;
+    border-radius: 20px;
+    text-decoration: none;
+}
+
+.bt-menu-header:hover {
+    background: linear-gradient(to bottom,rgba(150, 251, 255, 0.849),rgba(90, 249, 255, 0.568));
+}
+
+main {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    text-align: center;
+    border-radius: 20px;
+    background: linear-gradient(to bottom,rgba(0, 61, 63, 0.568),rgba(0, 133, 138, 0.568));
+    width: 100%;
+    
+}
+
+
+.footer {
+    background: linear-gradient(to bottom, rgba(23, 35, 36, 0.568), rgba(71, 71, 71, 0.568));
+    color: white;
+    margin: 0;
+    margin-top: auto; 
+    text-align: center;
+    font-size: 10px;
+    width: 100%;
+    border-bottom-right-radius: 20px;
+    border-bottom-left-radius: 20px;
+    bottom: 10px;
+
+
+}
+
+.bt-action-main {
+    font-family: "Handjet";
+    background-color: black;
+    font-size: 1.5em;
+    text-decoration: none;
+    border-style: dashed;
+    color: rgb(255, 196, 0);;
+    border-color: rgb(252, 71, 0);
+    border-width: 2px;
+    margin-bottom: 5px;
+    border-radius: 10px;
+    text-align: center;
+    width: 50%;
+    height: 40px;
+    font-size: 1.6em;
+}
+
+.bt-action-main:hover {
+    background-color: rgb(32, 32, 32);
+    cursor: pointer;
+}
+
+.bt-send-message {
+    font-family: "Handjet";
+    background-color: black;
+    font-size: 1.5em;
+    text-decoration: none;
+    border-style: solid;
+    color: rgb(255, 196, 0);;
+    border-color: rgb(252, 71, 0);
+    border-width: 1px;
+    border-radius: 50%;
+    text-align: center;
+    justify-content: center;
+    width: 30px;
+    height: 30px;
+    font-size: 1.6em;
+}
+
+.bt-send-message:hover {
+    background-color: rgb(32, 32, 32);
+    cursor: pointer;
+}
+
+.msg-screen {
+    background-color: aliceblue;
+    width: 95%;
+    height: 70%;
+    border-color: rgba(0, 0, 0, 0.726);
+    border-style: solid;
+    border-width: 2px;
+    border-radius: 15px;
+    margin-top: 2%;
+    margin-bottom: 2%;
+}
+
+#bt-copy {
+    margin: 30px;
+}
