@@ -4,7 +4,7 @@
   },
   "hosting": {
     "site": "implode",
-    "public": "public",
+    "public": ".",
     "ignore": [
       "firebase.json",
       "**/.*",
