@@ -5,6 +5,7 @@
     margin: 0 auto;
     padding: 0;
     box-sizing: border-box;
+
 }
 
 body {
@@ -13,6 +14,7 @@ body {
     height: 100vh;
     background: linear-gradient(to bottom,rgba(0, 133, 138, 0.568), rgba(0, 220, 228, 0.568));
     align-items: center;
+
 }
 
 h1 {
@@ -34,7 +36,7 @@ h1 {
     gap: 2px;
     font-family: Arial, sans-serif;
     height: 98%;
-    width: 100%;
+    width: 98%;
 
 }
 
@@ -76,7 +78,6 @@ header {
 main {
     display: flex;
     flex-direction: column;
-    flex: 1;
     text-align: center;
     border-radius: 20px;
     background: linear-gradient(to bottom,rgba(0, 61, 63, 0.568),rgba(0, 133, 138, 0.568));
@@ -87,17 +88,13 @@ main {
 
 .footer {
     background: linear-gradient(to bottom, rgba(23, 35, 36, 0.568), rgba(71, 71, 71, 0.568));
+    margin: inherit;
     color: white;
-    margin: 0;
-    margin-top: auto; 
     text-align: center;
     font-size: 10px;
-    width: 100%;
-    border-bottom-right-radius: 20px;
-    border-bottom-left-radius: 20px;
-    bottom: 10px;
-
-
+    min-width: 50%;
+    max-width: 60%;
+    border-radius: 10px;
 }
 
 .bt-action-main {
@@ -134,8 +131,8 @@ main {
     border-radius: 50%;
     text-align: center;
     justify-content: center;
-    width: 30px;
-    height: 30px;
+    width: 8%;
+    aspect-ratio: 1 / 1;
     font-size: 1.6em;
 }
 
@@ -147,15 +144,71 @@ main {
 .msg-screen {
     background-color: aliceblue;
     width: 95%;
-    height: 70%;
+    min-height: 65%;
+    max-height: 30vh;
     border-color: rgba(0, 0, 0, 0.726);
     border-style: solid;
     border-width: 2px;
     border-radius: 15px;
     margin-top: 2%;
-    margin-bottom: 2%;
+    margin-bottom: 0px;
+    padding: 8px;
+    overflow: auto; 
 }
 
 #bt-copy {
     margin: 30px;
+}
+
+.send-bar {
+    width: 92%;
+    display: flex;
+    flex-direction: line;
+    border-color: rgba(0, 0, 0, 0.726);
+    border-style: solid;
+    border-width: 2px;    
+    background-color: white;
+    border-radius: 20px;
+    padding: 6px;
+}
+
+.type-msg {
+    width: 92%;
+    border-style: none;
+    font-size: 16px;
+}
+
+.type-msg:focus {
+    outline: none;
+}
+
+.show-msg {
+    vertical-align: bottom;
+}
+
+.msg-on-screen {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 1.2em;
+    display: flex;
+    border-style: solid;
+    border-width: 1px;
+    border-color: rgb(192, 192, 46);
+    border-radius: 15px;
+    background-color: beige;
+    width: fit-content;
+    padding: 3px 8px 3px 8px;
+    margin: 8px;
+}
+
+.msg-author {
+    color: rgb(4, 77, 77);
+    font-size: 1em;
+    font-weight: 700;
+}
+
+.msg-body {
+    color: rgb(0, 0, 0);
+    font-size: 1em;
+    font-weight: 700;
+    text-align: left;
 }

@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <link rel="stylesheet" href="../css/styles.css">
     <link rel="icon" href="../images/favicon.ico" type="image/x-icon">
     <title>ImplodeChat!</title>
@@ -15,17 +15,21 @@
                 <a href="" class="bt-menu-header">Home</a>
                 <a href="" class="bt-menu-header">About</a>
             </header>
-            <div type="text" class="msg-screen">
-                <button id="bt-copy" class="bt-action-main" onclick="copyLink()" title="THIS SECRET LINK">copy/send link</button>
-
-
-
+            <div type="text" contenteditable="true" class="msg-screen" id="all-messages">
+         
             </div>
-            <a type="button" class="bt-send-message" >></a>
             <div class="footer">2024 - ti0aly - ImplodeChat</div>
+            <div class="send-bar">
+            <textarea class="type-msg" type="text" id="my-msg" placeholder="..." autofocus autocomplete="off" spellcheck="true" ></textarea>
+            <a type="button" class="bt-send-message" id="send-msg" >></a>
+            </div>
+
         </main>
 
     </div>
-    <script src="../scripts/implodechat.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script type="module" src="../scripts/implodechat.js"></script>
+    <script type="module" src="../scripts/implodebd.js"></script>
+
 </body>
 </html>
