@@ -1,5 +1,5 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.13.1/firebase-app.js";
-import { getDatabase, ref, set, onValue, update, push} from "https://www.gstatic.com/firebasejs/10.13.1/firebase-database.js";
+import { getDatabase, ref, set, get, onValue, update, push, child} from "https://www.gstatic.com/firebasejs/10.13.1/firebase-database.js";
 
 const firebaseConfig = {
   apiKey: "AIzaSyDmUlTq07ato7k8RJaA0B2kglTl7dFRn88",
@@ -22,6 +22,25 @@ export async function addMessage(message, link) {
     timestamp: Date.now()
   });
 }
+
+export async function readData(nodePath) {
+  const dbRef = ref(database); 
+
+  try {
+    const snapshot = await get(child(dbRef, nodePath));
+    if (snapshot.exists()) {
+      console.log("Dados:", snapshot.val()); 
+      return snapshot.val(); 
+    } else {
+      console.log("Nenhum dado disponível nesse nó.");
+      return null;
+    }
+  } catch (error) {
+    console.error("Erro ao ler os dados:", error);
+  }
+}
+
+
 
 export function startSession() {
   const sessionId1 = generateRandomId(); 

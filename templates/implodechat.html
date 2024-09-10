@@ -2,7 +2,10 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0,  user-scalable=no">
+    
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="../css/styles.css">
     <link rel="icon" href="../images/favicon.ico" type="image/x-icon">
     <title>ImplodeChat!</title>
@@ -15,14 +18,75 @@
                 <a href="" class="bt-menu-header">Home</a>
                 <a href="" class="bt-menu-header">About</a>
             </header>
-            <div type="text" contenteditable="true" class="msg-screen" id="all-messages">
+            <div type="text" class="msg-screen" id="all-messages">
          
             </div>
             <div class="footer">2024 - ti0aly - ImplodeChat</div>
             <div class="send-bar">
-            <textarea class="type-msg" type="text" id="my-msg" placeholder="..." autofocus autocomplete="off" spellcheck="true" ></textarea>
+            <textarea class="type-msg" type="text" id="my-msg" placeholder="..." autofocus autocomplete="off" spellcheck="true" readonly></textarea>
             <a type="button" class="bt-send-message" id="send-msg" >></a>
             </div>
+            <div class="keyboard-container">
+                <div id="keyboard" class="keyboard">
+                  <div class="keyboard-row">
+                    <button class="key">1</button>
+                    <button class="key">2</button>
+                    <button class="key">3</button>
+                    <button class="key">4</button>
+                    <button class="key">5</button>
+                    <button class="key">6</button>
+                    <button class="key">7</button>
+                    <button class="key">8</button>
+                    <button class="key">9</button>
+                    <button class="key">0</button>
+                  </div>
+                  <!-- Fila 2 -->
+                  <div class="keyboard-row">
+                    <button class="key">q</button>
+                    <button class="key">w</button>
+                    <button class="key">e</button>
+                    <button class="key">r</button>
+                    <button class="key">t</button>
+                    <button class="key">y</button>
+                    <button class="key">u</button>
+                    <button class="key">i</button>
+                    <button class="key">o</button>
+                    <button class="key">p</button>
+                  </div>
+                  <!-- Fila 3 -->
+                  <div class="keyboard-row">
+                    <button class="key">a</button>
+                    <button class="key">s</button>
+                    <button class="key">d</button>
+                    <button class="key">f</button>
+                    <button class="key">g</button>
+                    <button class="key">h</button>
+                    <button class="key">j</button>
+                    <button class="key">k</button>
+                    <button class="key">l</button>
+                  </div>
+                  <!-- Fila 4 -->
+                  <div class="keyboard-row">
+                    <button class="key" id="caps-lock">⇪</button>
+                    <button class="key">z</button>
+                    <button class="key">x</button>
+                    <button class="key">c</button>
+                    <button class="key">v</button>
+                    <button class="key">b</button>
+                    <button class="key">n</button>
+                    <button class="key">m</button>
+                    <button class="key" id="deleteKey">DEL</button>
+                  </div>
+                  <!-- Espaço -->
+                  <div class="keyboard-row">
+                    <button class="key">!</button>
+                    <button class="key">.</button>
+                    <button class="key" id="spaceKey">ESP</button>
+                    <button class="key">,</button>
+                    <button class="key">?</button>
+                  </div>
+                </div>
+              </div>
 
         </main>
 
