@@ -1,10 +1,8 @@
-import { addMessage, readData, monitorarNodeRealtime, verificarNodeExistente } from "./implodebd.js";
+import { addMessage, readData, monitorarNodeRealtime, verificarNodeExistente, setLink } from "./implodebd.js";
 
 
 const emojis = ["😀", "😃", "😄", "😁", "😆", "😇", "😎", "🧐", "🤓", "🥳", "😺", "😸", "🐶", "🐱", "🦁", "🐯", "🦊", "🦝", "🐻", "🐼", "🦄", "🐷", "🐣", "🐥", "🦄", "🐝", "🦋", "🐢", "🐠", "🐬", "🐳", "🐍", "🍎", "🍊", "🍉", "🍇", "🍒", "🍓", "🍍", "🥥", "🍌", "🍑", "🚗", "🚀", "🛸", "🚁", "🛶", "🚤", "✈️", "🚂", "🚉", "🚜", "🌈", "🌟", "🌼", "🌻", "🌺", "🍀", "🍁", "🍄", "🌵", "🎄", "⚽", "🏀", "🏈", "🎾", "🏐", "🎲", "🧩", "🎮", "🎯", "🧸", "📚", "✏️", "🖍️", "🎨", "🖌️", "🎻", "🎸", "🎺", "🎷", "🥁"];
 const myId = emojiAleatorio();
-// const myId = generateRandomShortId(); 
-// const  linkAtual = prompt("Please, paste your secret link:");
 const queryString = window.location.search;
 const urlParams = new URLSearchParams(queryString);
 if (urlParams.size === 0) {
@@ -13,7 +11,7 @@ if (urlParams.size === 0) {
 } 
     
 const linkAtual = urlParams.get('sala');
-
+setLink(linkAtual);
 
 monitorarNodeRealtime(linkAtual);
 let lowerUpper = 1;

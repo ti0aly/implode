@@ -101,7 +101,7 @@ main {
     margin: inherit;
     color: white;
     text-align: center;
-    font-size: 10px;
+    font-size: 14px;
     min-width: 50%;
     max-width: 60%;
     border-radius: 10px;
@@ -230,7 +230,7 @@ main {
   }
   
 .keyboard {
-    width: 95%;
+    width: 100%;
     display: inline-block;
   }
   

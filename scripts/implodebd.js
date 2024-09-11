@@ -13,6 +13,13 @@ const firebaseConfig = {
 
 const app = initializeApp(firebaseConfig);
 const database = getDatabase(app);
+let linkAtualRecebido;
+
+export function setLink(link) {
+  linkAtualRecebido = link;
+}
+
+
 
 export function monitorarNodeRealtime(linkNode) {
   const mensagensRef = ref(database, linkNode); 
@@ -122,3 +129,32 @@ export async function verificarNodeExistente(caminhoNode) {
       console.error("Erro ao verificar o nó: ", error);
     });
 }
+
+
+
+
+setTimeout(function() {
+  console.log('link recebido', linkAtualRecebido);
+}, 1000);
+
+setTimeout(function() {
+  const connectedRef = ref(database, linkAtualRecebido);
+  console.log('connections: ', linkAtualRecebido);
+  onValue(connectedRef, (snap) => {
+    if (snap.val() === true) {
+      const conRef = push(ref(database, linkAtualRecebido));
+      set(conRef, true);
+      onDisconnect(conRef).remove();
+    }
+  });
+}, 2000);
+
+setTimeout(function() {
+  const connectionsRef = ref(database, linkAtualRecebido);
+  onValue(connectionsRef, (snapshot) => {
+    const numConnections = snapshot.size;
+    document.getElementById('status-connection').textContent = `Conexões ativas: ${numConnections}`;
+  });
+}, 3000);
+
+
