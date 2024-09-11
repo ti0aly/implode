@@ -1,5 +1,5 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.13.1/firebase-app.js";
-import { getDatabase, ref, set, get, onValue, update, push, child} from "https://www.gstatic.com/firebasejs/10.13.1/firebase-database.js";
+import { getDatabase, ref, set, get, onValue, update, push, child, onChildAdded, remove} from "https://www.gstatic.com/firebasejs/10.13.1/firebase-database.js";
 
 const firebaseConfig = {
   apiKey: "AIzaSyDmUlTq07ato7k8RJaA0B2kglTl7dFRn88",
@@ -14,12 +14,58 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const database = getDatabase(app);
 
-export async function addMessage(message, link) {
+export function monitorarNodeRealtime(linkNode) {
+  const mensagensRef = ref(database, linkNode); 
+  // Escuta todas as mudanças no nó e seus subnós e adiciona no DOM
+  onValue(mensagensRef, (snapshot) => {
+    snapshot.forEach((childSnapshot) => {
+      const dados = childSnapshot.val();
+      const mensagem = dados.message;
+      const myId = dados.id;
+      const chave = childSnapshot.key;
+      if (mensagem != undefined) {
+        let msgContainer = document.createElement('div');
+        msgContainer.classList.add('msg-on-screen');
+        let identifyDiv = document.createElement('p');
+        identifyDiv.classList.add('msg-author');
+        let screen = document.getElementById('all-messages');
+        let showNewMsg = document.createElement('p');
+        showNewMsg.classList.add('msg-body');
+        identifyDiv.textContent = myId + '> ';
+        showNewMsg.textContent = mensagem;
+        msgContainer.appendChild(identifyDiv);
+        msgContainer.appendChild(showNewMsg);
+        screen.appendChild(msgContainer);
+        screen.scrollTop = screen.scrollHeight;
+        apagarMensagem(linkNode, chave);
+    }
+  }
+  );
+  });
+
+}
+
+
+function apagarMensagem(link, mensagemId) {
+  const mensagemRef = ref(database, `${link}/${mensagemId}`); // Substitua 'mensagens' pelo caminho correto e 'mensagemId' pelo ID da mensagem a ser removida
+  
+  remove(mensagemRef)
+    .then(() => {
+      console.log("Mensagem removida com sucesso.");
+    })
+    .catch((error) => {
+      console.error("Erro ao remover a mensagem: ", error);
+    });
+}
+
+
+
+export async function addMessage(message, myId, link) {
   const messageRef = ref(database, link);
-  console.log('link recebido na addMessage: ', link);
   push(messageRef, {
-    text: message,
-    timestamp: Date.now()
+    'message': message,
+    'id': myId 
+   
   });
 }
 
@@ -29,7 +75,6 @@ export async function readData(nodePath) {
   try {
     const snapshot = await get(child(dbRef, nodePath));
     if (snapshot.exists()) {
-      console.log("Dados:", snapshot.val()); 
       return snapshot.val(); 
     } else {
       console.log("Nenhum dado disponível nesse nó.");
@@ -48,10 +93,10 @@ export function startSession() {
   const sessionId = sessionId1 + sessionId2;
   const link = 'chats/secrets/sessions/' + sessionId + '/';
   const sessionRef = ref(database, 'chats/secrets/sessions/' + sessionId);
-
+  
   // Adiciona dados ao nó da sessão
   set(sessionRef, {
-    timestamp: Date.now()
+    message: 'startChat!'
   }).then(() => {
     console.log('Dados adicionados ao nó da sessão com ID:', sessionId );
     console.log('conteudo do link: ', link);
@@ -59,10 +104,28 @@ export function startSession() {
   }).catch((error) => {
     console.error('Erro ao adicionar dados:', error);
   });
+
   return link;
+
   
 }
 
 function generateRandomId() {
   return '_' + Math.random().toString(36).substr(2, 9);
+}
+
+export async function verificarNodeExistente(caminhoNode) {
+  const nodeRef = ref(database, caminhoNode); // Especifique o caminho do nó
+  get(nodeRef)
+    .then((snapshot) => {
+      if (snapshot.exists()) {
+        console.log("O nó existe.");
+        console.log(snapshot.val()); // Exibe os dados do nó, se existir
+      } else {
+        console.log("O nó não existe.");
+      }
+    })
+    .catch((error) => {
+      console.error("Erro ao verificar o nó: ", error);
+    });
 }

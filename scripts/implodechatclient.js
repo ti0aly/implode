@@ -1,34 +1,29 @@
-import { addMessage, startSession, readData, monitorarNodeRealtime } from "./implodebd.js";
+import { addMessage, readData, monitorarNodeRealtime, verificarNodeExistente } from "./implodebd.js";
 
 
 const emojis = ["😀", "😃", "😄", "😁", "😆", "😇", "😎", "🧐", "🤓", "🥳", "😺", "😸", "🐶", "🐱", "🦁", "🐯", "🦊", "🦝", "🐻", "🐼", "🦄", "🐷", "🐣", "🐥", "🦄", "🐝", "🦋", "🐢", "🐠", "🐬", "🐳", "🐍", "🍎", "🍊", "🍉", "🍇", "🍒", "🍓", "🍍", "🥥", "🍌", "🍑", "🚗", "🚀", "🛸", "🚁", "🛶", "🚤", "✈️", "🚂", "🚉", "🚜", "🌈", "🌟", "🌼", "🌻", "🌺", "🍀", "🍁", "🍄", "🌵", "🎄", "⚽", "🏀", "🏈", "🎾", "🏐", "🎲", "🧩", "🎮", "🎯", "🧸", "📚", "✏️", "🖍️", "🎨", "🖌️", "🎻", "🎸", "🎺", "🎷", "🥁"];
 const myId = emojiAleatorio();
 // const myId = generateRandomShortId(); 
-const  linkAtual = startSession();
-let msgContainer = document.createElement('div');
-msgContainer.classList.add('msg-on-screen');
-let screen = document.getElementById('all-messages');
-let showNewMsg = document.createElement('p');
-showNewMsg.classList.add('msg-body');
-let identifyDiv = document.createElement('p');
-identifyDiv.classList.add('msg-author');
-identifyDiv.textContent = 'Secret: ';
-showNewMsg.textContent = linkAtual;
-msgContainer.appendChild(identifyDiv);
-msgContainer.appendChild(showNewMsg);
-screen.appendChild(msgContainer);
+const  linkAtual = prompt("Please, paste your secret link:");
+if (verificarNodeExistente(linkAtual)) {
+    alert('WELCOME!');
+}
 
 monitorarNodeRealtime(linkAtual);
 let lowerUpper = 1;
+
+
+
 document.body.style.position = 'relative';
 document.body.style.bottom = `0px`; // Fixa na posição atual
 
-document.querySelector('body').addEventListener('resize', function() { adjustHeight();});
+document.querySelector('body').addEventListener('resize', function() {
+    adjustHeight();
+});
 
 document.getElementById("send-msg").addEventListener('click', function(event) { 
     document.getElementById("my-msg").focus();
     sendMessage(linkAtual);
-
 });
 
 document.getElementById("my-msg").addEventListener('keydown', function(event) {
