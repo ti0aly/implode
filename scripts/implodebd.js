@@ -67,7 +67,6 @@ export async function addMessage(message, myId, link) {
   push(messageRef, {
     'message': message,
     'id': myId 
-   
   });
 }
 
@@ -150,11 +149,24 @@ setTimeout(function() {
 }, 2000);
 
 setTimeout(function() {
-  const connectionsRef = ref(database, linkAtualRecebido);
+  const connectionsLink = linkAtualRecebido + "connections/" 
+  console.log("connections link: ", connectionsLink);
+  const connectionsRef = ref(database, connectionsLink);
   onValue(connectionsRef, (snapshot) => {
     const numConnections = snapshot.size;
     document.getElementById('status-connection').textContent = `Conexões ativas: ${numConnections}`;
   });
 }, 3000);
+
+export async function addConnection(myId, link) {
+  const connectionsLink = link + "connections/" 
+  const messageRef = ref(database, connectionsLink);
+  const newMessageRef = push(messageRef, {
+    'connection': myId
+  });
+  window.addEventListener('unload', () => {
+    remove(newMessageRef);
+  });
+}
 
 

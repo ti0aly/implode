@@ -1,4 +1,4 @@
-import { addMessage, readData, monitorarNodeRealtime, verificarNodeExistente, setLink } from "./implodebd.js";
+import { addMessage, readData, monitorarNodeRealtime, verificarNodeExistente, setLink, addConnection } from "./implodebd.js";
 
 
 const emojis = ["😀", "😃", "😄", "😁", "😆", "😇", "😎", "🧐", "🤓", "🥳", "😺", "😸", "🐶", "🐱", "🦁", "🐯", "🦊", "🦝", "🐻", "🐼", "🦄", "🐷", "🐣", "🐥", "🦄", "🐝", "🦋", "🐢", "🐠", "🐬", "🐳", "🐍", "🍎", "🍊", "🍉", "🍇", "🍒", "🍓", "🍍", "🥥", "🍌", "🍑", "🚗", "🚀", "🛸", "🚁", "🛶", "🚤", "✈️", "🚂", "🚉", "🚜", "🌈", "🌟", "🌼", "🌻", "🌺", "🍀", "🍁", "🍄", "🌵", "🎄", "⚽", "🏀", "🏈", "🎾", "🏐", "🎲", "🧩", "🎮", "🎯", "🧸", "📚", "✏️", "🖍️", "🎨", "🖌️", "🎻", "🎸", "🎺", "🎷", "🥁"];
@@ -12,7 +12,7 @@ if (urlParams.size === 0) {
     
 const linkAtual = urlParams.get('sala');
 setLink(linkAtual);
-
+addConnection(myId, linkAtual);
 monitorarNodeRealtime(linkAtual);
 let lowerUpper = 1;
 
