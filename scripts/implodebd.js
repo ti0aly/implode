@@ -31,7 +31,7 @@ export function monitorarNodeRealtime(linkNode) {
         let screen = document.getElementById('all-messages');
         let showNewMsg = document.createElement('p');
         showNewMsg.classList.add('msg-body');
-        identifyDiv.textContent = myId + '> ';
+        identifyDiv.textContent = myId;
         showNewMsg.textContent = mensagem;
         msgContainer.appendChild(identifyDiv);
         msgContainer.appendChild(showNewMsg);
@@ -42,13 +42,10 @@ export function monitorarNodeRealtime(linkNode) {
   }
   );
   });
-
 }
-
 
 function apagarMensagem(link, mensagemId) {
   const mensagemRef = ref(database, `${link}/${mensagemId}`); // Substitua 'mensagens' pelo caminho correto e 'mensagemId' pelo ID da mensagem a ser removida
-  
   remove(mensagemRef)
     .then(() => {
       console.log("Mensagem removida com sucesso.");
@@ -57,8 +54,6 @@ function apagarMensagem(link, mensagemId) {
       console.error("Erro ao remover a mensagem: ", error);
     });
 }
-
-
 
 export async function addMessage(message, myId, link) {
   const messageRef = ref(database, link);
@@ -104,10 +99,7 @@ export function startSession() {
   }).catch((error) => {
     console.error('Erro ao adicionar dados:', error);
   });
-
   return link;
-
-  
 }
 
 function generateRandomId() {
@@ -116,14 +108,15 @@ function generateRandomId() {
 
 export async function verificarNodeExistente(caminhoNode) {
   const nodeRef = ref(database, caminhoNode); // Especifique o caminho do nó
+  let answer = Boolean;
   get(nodeRef)
     .then((snapshot) => {
       if (snapshot.exists()) {
-        console.log("O nó existe.");
-        console.log(snapshot.val()); // Exibe os dados do nó, se existir
+        answer = true;
       } else {
-        console.log("O nó não existe.");
+        answer = false;
       }
+      return answer
     })
     .catch((error) => {
       console.error("Erro ao verificar o nó: ", error);

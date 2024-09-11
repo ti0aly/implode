@@ -1,22 +1,10 @@
 import { addMessage, startSession, readData, monitorarNodeRealtime } from "./implodebd.js";
 
 
-const emojis = ["😀", "😃", "😄", "😁", "😆", "😇", "😎", "🧐", "🤓", "🥳", "😺", "😸", "🐶", "🐱", "🦁", "🐯", "🦊", "🦝", "🐻", "🐼", "🦄", "🐷", "🐣", "🐥", "🦄", "🐝", "🦋", "🐢", "🐠", "🐬", "🐳", "🐍", "🍎", "🍊", "🍉", "🍇", "🍒", "🍓", "🍍", "🥥", "🍌", "🍑", "🚗", "🚀", "🛸", "🚁", "🛶", "🚤", "✈️", "🚂", "🚉", "🚜", "🌈", "🌟", "🌼", "🌻", "🌺", "🍀", "🍁", "🍄", "🌵", "🎄", "⚽", "🏀", "🏈", "🎾", "🏐", "🎲", "🧩", "🎮", "🎯", "🧸", "📚", "✏️", "🖍️", "🎨", "🖌️", "🎻", "🎸", "🎺", "🎷", "🥁"];
+const emojis = ['😀', '😃', '😄', "😁", "😆", "😇", "😎", "🧐", "🤓", "🥳", "😺", "😸", "🐶", "🐱", "🦁", "🐯", "🦊", "🦝", "🐻", "🐼", "🦄", "🐷", "🐣", "🐥", "🦄", "🐝", "🦋", "🐢", "🐠", "🐬", "🐳", "🐍", "🍎", "🍊", "🍉", "🍇", "🍒", "🍓", "🍍", "🥥", "🍌", "🍑", "🚗", "🚀", "🛸", "🚁", "🛶", "🚤", "✈️", "🚂", "🚉", "🚜", "🌈", "🌟", "🌼", "🌻", "🌺", "🍀", "🍁", "🍄", "🌵", "🎄", "⚽", "🏀", "🏈", "🎾", "🏐", "🎲", "🧩", "🎮", "🎯", "🧸", "📚", "✏️", "🖍️", "🎨", "🖌️", "🎻", "🎸", "🎺", "🎷", "🥁"];
 const myId = emojiAleatorio();
 // const myId = generateRandomShortId(); 
 const  linkAtual = startSession();
-let msgContainer = document.createElement('div');
-msgContainer.classList.add('msg-on-screen');
-let screen = document.getElementById('all-messages');
-let showNewMsg = document.createElement('p');
-showNewMsg.classList.add('msg-body');
-let identifyDiv = document.createElement('p');
-identifyDiv.classList.add('msg-author');
-identifyDiv.textContent = 'Secret: ';
-showNewMsg.textContent = linkAtual;
-msgContainer.appendChild(identifyDiv);
-msgContainer.appendChild(showNewMsg);
-screen.appendChild(msgContainer);
 
 monitorarNodeRealtime(linkAtual);
 let lowerUpper = 1;
@@ -28,29 +16,25 @@ document.querySelector('body').addEventListener('resize', function() { adjustHei
 document.getElementById("send-msg").addEventListener('click', function(event) { 
     document.getElementById("my-msg").focus();
     sendMessage(linkAtual);
-
 });
 
-document.getElementById("my-msg").addEventListener('keydown', function(event) {
-    
-    if (event.key === 'Enter') {
+const copyBtn = document.getElementById('copy-link');
+copyBtn.addEventListener('click', () => {
+    navigator.clipboard.writeText('https://ti0aly.github.io/implode/templates/implodechatclient.html?sala=' + linkAtual);
+    document.getElementById('my-msg').placeholder = 'PASTE LINK TO YOUR FRIEND';
+    setTimeout(function() {document.getElementById('my-msg').placeholder = '. . .'},3000);
+});
 
+
+
+document.getElementById("my-msg").addEventListener('keydown', function(event) {
+    if (event.key === 'Enter') {
         sendMessage(linkAtual);
     }
 });
 
-
-
 function adjustHeight() {
     document.getElementById('body-content').style.height = '70%';
-    
-/*     let vh = window.innerHeight * 0.01;
-    document.documentElement.style.setProperty('--vh', `${vh}px`);
-    const content = document.querySelector('body');
-    content.style.height = `calc(var(--vh, 1vh) * 100)`;
-    content.scrollTop = content.scrollHeight;
-    document.body.style.position = 'relative';
-    document.body.style.top = `0px`; */
 }
 
 const inputField = document.getElementById("my-msg");
@@ -59,7 +43,6 @@ const keys = document.querySelectorAll(".key");
 keys.forEach(key => {
   key.addEventListener("click", () => {
     const keyValue = key.textContent;
-
     if (keyValue === "DEL") {
         inputField.value = inputField.value.slice(0, -1);
     } 
@@ -82,26 +65,14 @@ function turnUpperLower() {
             key.textContent = key.textContent.toUpperCase();
         } else {
             if (key.textContent === "DEL" || key.textContent === "ESP") {
-
             } 
             else {
                 key.textContent = key.textContent.toLowerCase();
             }
-
         }
     });
 }
 
- 
-
-/* setTimeout(() => {
-    Swal.fire({
-      title: 'Copy/Send this link<br>to your friend:',
-      text: link,
-      icon: 'warning',
-      confirmButtonText: 'OK, I’ve copied it!'
-    });
-  }, 1000); */
 
 function sendMessage(linkAtual) {
 

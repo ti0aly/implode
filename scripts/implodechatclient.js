@@ -4,32 +4,30 @@ import { addMessage, readData, monitorarNodeRealtime, verificarNodeExistente } f
 const emojis = ["😀", "😃", "😄", "😁", "😆", "😇", "😎", "🧐", "🤓", "🥳", "😺", "😸", "🐶", "🐱", "🦁", "🐯", "🦊", "🦝", "🐻", "🐼", "🦄", "🐷", "🐣", "🐥", "🦄", "🐝", "🦋", "🐢", "🐠", "🐬", "🐳", "🐍", "🍎", "🍊", "🍉", "🍇", "🍒", "🍓", "🍍", "🥥", "🍌", "🍑", "🚗", "🚀", "🛸", "🚁", "🛶", "🚤", "✈️", "🚂", "🚉", "🚜", "🌈", "🌟", "🌼", "🌻", "🌺", "🍀", "🍁", "🍄", "🌵", "🎄", "⚽", "🏀", "🏈", "🎾", "🏐", "🎲", "🧩", "🎮", "🎯", "🧸", "📚", "✏️", "🖍️", "🎨", "🖌️", "🎻", "🎸", "🎺", "🎷", "🥁"];
 const myId = emojiAleatorio();
 // const myId = generateRandomShortId(); 
-const  linkAtual = prompt("Please, paste your secret link:");
-if (verificarNodeExistente(linkAtual)) {
-    alert('WELCOME!');
-}
+// const  linkAtual = prompt("Please, paste your secret link:");
+const queryString = window.location.search;
+const urlParams = new URLSearchParams(queryString);
+if (urlParams.size === 0) {
+    alert('YOU NEED A VALID LINK');
+    window.location.href = 'https://ti0aly.github.io/implode';
+} 
+    
+const linkAtual = urlParams.get('sala');
+
 
 monitorarNodeRealtime(linkAtual);
 let lowerUpper = 1;
 
-
-
 document.body.style.position = 'relative';
 document.body.style.bottom = `0px`; // Fixa na posição atual
+document.querySelector('body').addEventListener('resize', function() { adjustHeight();});
 
-document.querySelector('body').addEventListener('resize', function() {
-    adjustHeight();
-});
-
-document.getElementById("send-msg").addEventListener('click', function(event) { 
-    document.getElementById("my-msg").focus();
+document.getElementById("send-msg").addEventListener('click', function(event) { document.getElementById("my-msg").focus();
     sendMessage(linkAtual);
 });
 
 document.getElementById("my-msg").addEventListener('keydown', function(event) {
-    
     if (event.key === 'Enter') {
-
         sendMessage(linkAtual);
     }
 });
