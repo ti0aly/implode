@@ -163,10 +163,10 @@ main {
     margin-bottom: 0px;
     padding: 8px;
     overflow: auto; 
-    align-content: flex-end;
-    text-align: -webkit-right;
+    align-content: end;
     resize: vertical;
 }
+
 
 #bt-copy {
     margin: 30px;
@@ -211,6 +211,22 @@ main {
     padding: 3px 8px 3px 8px;
     margin: 8px;
 }
+
+.my-msg-on-screen {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 14px;
+    display: flex;
+    border-style: solid;
+    border-width: 1px;
+    border-color: rgb(192, 192, 46);
+    border-radius: 15px;
+    background-color: beige;
+    width: fit-content;
+    padding: 3px 8px 3px 8px;
+    margin: 8px;
+    margin-left: auto;
+}
+
 
 .msg-author {
     color: rgb(4, 77, 77);

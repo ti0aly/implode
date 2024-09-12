@@ -13,13 +13,15 @@ const firebaseConfig = {
 
 const app = initializeApp(firebaseConfig);
 const database = getDatabase(app);
+let myId;
 let linkAtualRecebido;
+let msgKeysPrinted = [];
+let msgKeysDeleted = [];
+let myMsgs = [];
 
-export function setLink(link) {
-  linkAtualRecebido = link;
-}
-
-
+export function setLink(link) { linkAtualRecebido = link; }
+export function setMyId(id) { myId = id;}
+export function includeMyMsg(chave) { myMsgs.push(chave); }
 
 export function monitorarNodeRealtime(linkNode) {
   const mensagensRef = ref(database, linkNode); 
@@ -28,31 +30,53 @@ export function monitorarNodeRealtime(linkNode) {
     snapshot.forEach((childSnapshot) => {
       const dados = childSnapshot.val();
       const mensagem = dados.message;
-      const myId = dados.id;
+      const idMensagem = dados.id;
       const chave = childSnapshot.key;
-      if (mensagem != undefined) {
-        let msgContainer = document.createElement('div');
-        msgContainer.classList.add('msg-on-screen');
-        let identifyDiv = document.createElement('p');
-        identifyDiv.classList.add('msg-author');
-        let screen = document.getElementById('all-messages');
-        let showNewMsg = document.createElement('p');
-        showNewMsg.classList.add('msg-body');
-        identifyDiv.textContent = myId;
-        showNewMsg.textContent = mensagem;
-        msgContainer.appendChild(identifyDiv);
-        msgContainer.appendChild(showNewMsg);
-        screen.appendChild(msgContainer);
-        screen.scrollTop = screen.scrollHeight;
-        apagarMensagem(linkNode, chave);
+      if (mensagem === undefined) { 
+        console.log('mensagem apagada');
+      } else {
+        printMsg(mensagem, chave, idMensagem);
+      }
     }
-  }
   );
-  });
+});
 }
 
+function printMsg(mensagem, chave, idMensagem) {
+  if (!msgKeysPrinted.includes(chave) && !msgKeysDeleted.includes(chave)) {
+    msgKeysPrinted.unshift(chave);
+    let msgContainer = document.createElement('div');
+    if (idMensagem === myId) {
+      msgContainer.classList.add('my-msg-on-screen');
+    } else {
+      msgContainer.classList.add('msg-on-screen');
+    }
+    let identifyDiv = document.createElement('p');
+    identifyDiv.classList.add('msg-author');
+    let screen = document.getElementById('all-messages');
+    let showNewMsg = document.createElement('p');
+    showNewMsg.classList.add('msg-body');
+    showNewMsg.id = chave;
+    identifyDiv.textContent = idMensagem;
+    showNewMsg.textContent = mensagem;
+    msgContainer.appendChild(identifyDiv);
+    msgContainer.appendChild(showNewMsg);
+    screen.appendChild(msgContainer);
+    screen.scrollTop = screen.scrollHeight;
+    console.log('chave: dentro do printmsg: ', chave);
+    }
+    verifyImplode();
+}
+
+async function getMessage(linkAtualRecebido, chave) {
+  
+  return get(child(ref(database), `${linkAtualRecebido}/${chave}`));
+}
+
+
 function apagarMensagem(link, mensagemId) {
-  const mensagemRef = ref(database, `${link}/${mensagemId}`); // Substitua 'mensagens' pelo caminho correto e 'mensagemId' pelo ID da mensagem a ser removida
+  // 'mensagens' caminho e 'mensagemId' ID da mensagem
+  const mensagemRef = ref(database, `${link}/${mensagemId}`); 
   remove(mensagemRef)
     .then(() => {
       console.log("Mensagem removida com sucesso.");
@@ -64,15 +88,15 @@ function apagarMensagem(link, mensagemId) {
 
 export async function addMessage(message, myId, link) {
   const messageRef = ref(database, link);
-  push(messageRef, {
+  const key = push(messageRef, {
     'message': message,
     'id': myId 
   });
+  myMsgs.push(key);
 }
 
 export async function readData(nodePath) {
   const dbRef = ref(database); 
-
   try {
     const snapshot = await get(child(dbRef, nodePath));
     if (snapshot.exists()) {
@@ -86,22 +110,17 @@ export async function readData(nodePath) {
   }
 }
 
-
-
 export function startSession() {
   const sessionId1 = generateRandomId(); 
   const sessionId2 = generateRandomId();
   const sessionId = sessionId1 + sessionId2;
-  const link = 'chats/secrets/sessions/' + sessionId + '/';
-  const sessionRef = ref(database, 'chats/secrets/sessions/' + sessionId);
-  
-  // Adiciona dados ao nó da sessão
+  const link = 'chats/' + sessionId + '/';
+  const sessionRef = ref(database, 'chats/' + sessionId);
   set(sessionRef, {
     message: 'startChat!'
   }).then(() => {
     console.log('Dados adicionados ao nó da sessão com ID:', sessionId );
     console.log('conteudo do link: ', link);
-
   }).catch((error) => {
     console.error('Erro ao adicionar dados:', error);
   });
@@ -128,9 +147,6 @@ export async function verificarNodeExistente(caminhoNode) {
       console.error("Erro ao verificar o nó: ", error);
     });
 }
-
-
-
 
 setTimeout(function() {
   console.log('link recebido', linkAtualRecebido);
@@ -166,7 +182,23 @@ export async function addConnection(myId, link) {
   });
   window.addEventListener('unload', () => {
     remove(newMessageRef);
+
   });
 }
 
+function verifyImplode() {
+  if (msgKeysPrinted.length > 6) {
+    let implodeNowKey = msgKeysPrinted[msgKeysPrinted.length - 1];
+    apagarMensagem(linkAtualRecebido, implodeNowKey);
+    msgKeysDeleted.push(implodeNowKey);
+    msgKeysPrinted = msgKeysPrinted.filter(item => item !== implodeNowKey);
+    document.getElementById(implodeNowKey).innerText = ' 💥 MSG IMPLODED 💥 ';
 
+  }
+}
+
+export function deleteChat() {
+  const referencia = ref(database, linkAtualRecebido);
+  remove(referencia);
+  window.location.href = 'https://ti0aly.github.io/implode';
+} 

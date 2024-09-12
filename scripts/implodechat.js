@@ -1,4 +1,4 @@
-import { addMessage, startSession, readData, monitorarNodeRealtime, setLink, addConnection} from "./implodebd.js";
+import { addMessage, startSession, readData, monitorarNodeRealtime, setLink, addConnection, setMyId, deleteChat} from "./implodebd.js";
 
 
 const emojis = ['😀', '😃', '😄', "😁", "😆", "😇", "😎", "🧐", "🤓", "🥳", "😺", "😸", "🐶", "🐱", "🦁", "🐯", "🦊", "🦝", "🐻", "🐼", "🦄", "🐷", "🐣", "🐥", "🦄", "🐝", "🦋", "🐢", "🐠", "🐬", "🐳", "🐍", "🍎", "🍊", "🍉", "🍇", "🍒", "🍓", "🍍", "🥥", "🍌", "🍑", "🚗", "🚀", "🛸", "🚁", "🛶", "🚤", "✈️", "🚂", "🚉", "🚜", "🌈", "🌟", "🌼", "🌻", "🌺", "🍀", "🍁", "🍄", "🌵", "🎄", "⚽", "🏀", "🏈", "🎾", "🏐", "🎲", "🧩", "🎮", "🎯", "🧸", "📚", "✏️", "🖍️", "🎨", "🖌️", "🎻", "🎸", "🎺", "🎷", "🥁"];
@@ -6,6 +6,7 @@ const myId = emojiAleatorio();
 // const myId = generateRandomShortId(); 
 const  linkAtual = startSession();
 setLink(linkAtual);
+setMyId(myId);
 addConnection(myId, linkAtual);
 
 monitorarNodeRealtime(linkAtual);
@@ -14,7 +15,9 @@ document.body.style.position = 'relative';
 document.body.style.bottom = `0px`; // Fixa na posição atual
 
 document.querySelector('body').addEventListener('resize', function() { adjustHeight();});
-
+document.getElementById('delete-chat').addEventListener('click', function() {
+    deleteChat();
+});
 document.getElementById("send-msg").addEventListener('click', function(event) { 
     document.getElementById("my-msg").focus();
     sendMessage(linkAtual);
