@@ -1,4 +1,4 @@
-import { addMessage, readData, monitorarNodeRealtime, verificarNodeExistente, setLink, addConnection, setMyId } from "./implodebd.js";
+import { addMessage, monitorarNodeRealtime, verificarNodeExistente, setLink, addConnection, setMyId, readPassword } from "./implodebd.js";
 
 const emojis = ["😀", "😃", "😄", "😁", "😆", "😇", "😎", "🧐", "🤓", "🥳", "😺", "😸", "🐶", "🐱", "🦁", "🐯", "🦊", "🦝", "🐻", "🐼", "🦄", "🐷", "🐣", "🐥", "🦄", "🐝", "🦋", "🐢", "🐠", "🐬", "🐳", "🐍", "🍎", "🍊", "🍉", "🍇", "🍒", "🍓", "🍍", "🥥", "🍌", "🍑", "🚗", "🚀", "🛸", "🚁", "🛶", "🚤", "✈️", "🚂", "🚉", "🚜", "🌈", "🌟", "🌼", "🌻", "🌺", "🍀", "🍁", "🍄", "🌵", "🎄", "⚽", "🏀", "🏈", "🎾", "🏐", "🎲", "🧩", "🎮", "🎯", "🧸", "📚", "✏️", "🖍️", "🎨", "🖌️", "🎻", "🎸", "🎺", "🎷", "🥁"];
 const myId = emojiAleatorio();
@@ -14,6 +14,8 @@ setMyId(myId);
 addConnection(myId, linkAtual);
 monitorarNodeRealtime(linkAtual);
 let lowerUpper = 1;
+let password = prompt("Enter your password:");
+readPassword(password);
 
 document.body.style.position = 'relative';
 document.body.style.bottom = `0px`; // Fixa na posição atual

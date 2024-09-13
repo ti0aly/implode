@@ -1,4 +1,4 @@
-import { addMessage, startSession, readData, monitorarNodeRealtime, setLink, addConnection, setMyId} from "./implodebd.js";
+import { addMessage, startSession, monitorarNodeRealtime, setLink, addConnection, setMyId, addPassWord} from "./implodebd.js";
 
 const emojis = ['😀', '😃', '😄', "😁", "😆", "😇", "😎", "🧐", "🤓", "🥳", "😺", "😸", "🐶", "🐱", "🦁", "🐯", "🦊", "🦝", "🐻", "🐼", "🦄", "🐷", "🐣", "🐥", "🦄", "🐝", "🦋", "🐢", "🐠", "🐬", "🐳", "🐍", "🍎", "🍊", "🍉", "🍇", "🍒", "🍓", "🍍", "🥥", "🍌", "🍑", "🚗", "🚀", "🛸", "🚁", "🛶", "🚤", "✈️", "🚂", "🚉", "🚜", "🌈", "🌟", "🌼", "🌻", "🌺", "🍀", "🍁", "🍄", "🌵", "🎄", "⚽", "🏀", "🏈", "🎾", "🏐", "🎲", "🧩", "🎮", "🎯", "🧸", "📚", "✏️", "🖍️", "🎨", "🖌️", "🎻", "🎸", "🎺", "🎷", "🥁"];
 const myId = emojiAleatorio();
@@ -6,6 +6,7 @@ const  linkAtual = startSession();
 setLink(linkAtual);
 setMyId(myId);
 addConnection(myId, linkAtual);
+let password;
 
 monitorarNodeRealtime(linkAtual);
 let lowerUpper = 1;
@@ -26,6 +27,8 @@ document.getElementById("send-msg").addEventListener('click', function(event) {
 const copyBtn = document.getElementById('copy-link');
 copyBtn.addEventListener('click', () => {
     navigator.clipboard.writeText('https://ti0aly.github.io/implode/templates/implodechatclient.html?sala=' + linkAtual);
+    password = prompt("Please set your password:");
+    addPassWord(password);
     document.getElementById('my-msg').placeholder = 'PASTE LINK TO YOUR FRIEND';
     setTimeout(function() {document.getElementById('my-msg').placeholder = '. . .'},3000);
 });

@@ -92,20 +92,7 @@ export async function addMessage(message, myId, link) {
   myMsgs.push(key);
 }
 
-export async function readData(nodePath) {
-  const dbRef = ref(database); 
-  try {
-    const snapshot = await get(child(dbRef, nodePath));
-    if (snapshot.exists()) {
-      return snapshot.val(); 
-    } else {
-      console.log("Nenhum dado disponível nesse nó.");
-      return null;
-    }
-  } catch (error) {
-    console.error("Erro ao ler os dados:", error);
-  }
-}
+
 
 export function startSession() {
   const sessionId1 = generateRandomId(); 
@@ -199,3 +186,36 @@ export function deleteChat() {
   const referencia = ref(database, linkAtualRecebido);
   remove(referencia);
 } 
+
+export function addPassWord(password) {
+  const messageRef = ref(database, linkAtualRecebido + 'pass/');
+  update(messageRef, {
+    'password': password 
+  });
+}
+
+export async function readPassword(password) {
+  const dbRef = ref(database); 
+  try {
+    const snapshot = await get(child(dbRef, linkAtualRecebido + 'pass/'));
+    if (snapshot.exists()) {
+      const snap = snapshot.val();
+      console.log("snap: ", snap);
+      const valor = snap['password'];
+      console.log("valor===password", valor===password);
+      if (valor != password) {
+        incorrectPassword();        
+      } 
+
+    } else {
+      console.log("Nenhum dado disponível nesse nó.");
+    }
+  } catch (error) {
+    console.error("Erro ao ler os dados:", error);
+  }
+}
+
+function incorrectPassword() {
+  alert("💥 INCORRECT PASSWORD 💥");
+  window.location.href = 'https://ti0aly.github.io/implode';
+}
