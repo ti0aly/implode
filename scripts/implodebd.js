@@ -32,9 +32,7 @@ export function monitorarNodeRealtime(linkNode) {
       const mensagem = dados.message;
       const idMensagem = dados.id;
       const chave = childSnapshot.key;
-      if (mensagem === undefined) { 
-        console.log('mensagem apagada');
-      } else {
+      if (mensagem != undefined) { 
         printMsg(mensagem, chave, idMensagem);
       }
     }
@@ -48,7 +46,12 @@ function printMsg(mensagem, chave, idMensagem) {
     let msgContainer = document.createElement('div');
     if (idMensagem === myId) {
       msgContainer.classList.add('my-msg-on-screen');
-    } else {
+    } 
+    else if (idMensagem === 'implode-this-chat-now') {
+      alert("💥 This chat has been imploded! 💥");
+      window.location.href = 'https://ti0aly.github.io/implode';
+    }     
+    else {
       msgContainer.classList.add('msg-on-screen');
     }
     let identifyDiv = document.createElement('p');
@@ -67,12 +70,6 @@ function printMsg(mensagem, chave, idMensagem) {
     }
     verifyImplode();
 }
-
-async function getMessage(linkAtualRecebido, chave) {
-  
-  return get(child(ref(database), `${linkAtualRecebido}/${chave}`));
-}
-
 
 function apagarMensagem(link, mensagemId) {
   // 'mensagens' caminho e 'mensagemId' ID da mensagem
@@ -120,7 +117,6 @@ export function startSession() {
     message: 'startChat!'
   }).then(() => {
     console.log('Dados adicionados ao nó da sessão com ID:', sessionId );
-    console.log('conteudo do link: ', link);
   }).catch((error) => {
     console.error('Erro ao adicionar dados:', error);
   });
@@ -149,10 +145,6 @@ export async function verificarNodeExistente(caminhoNode) {
 }
 
 setTimeout(function() {
-  console.log('link recebido', linkAtualRecebido);
-}, 1000);
-
-setTimeout(function() {
   const connectedRef = ref(database, linkAtualRecebido);
   console.log('connections: ', linkAtualRecebido);
   onValue(connectedRef, (snap) => {
@@ -166,11 +158,16 @@ setTimeout(function() {
 
 setTimeout(function() {
   const connectionsLink = linkAtualRecebido + "connections/" 
-  console.log("connections link: ", connectionsLink);
   const connectionsRef = ref(database, connectionsLink);
+
   onValue(connectionsRef, (snapshot) => {
     const numConnections = snapshot.size;
-    document.getElementById('status-connection').textContent = `Conexões ativas: ${numConnections}`;
+    let childDataActive = '';
+    snapshot.forEach((childSnapshot) => {
+      const childData = childSnapshot.val(); // Pega o valor de cada entrada
+      childDataActive += childData['connection'];
+  });
+    document.getElementById('status-connection').textContent = `Conexões ativas: ${numConnections} (${childDataActive})`;
   });
 }, 3000);
 
@@ -182,6 +179,7 @@ export async function addConnection(myId, link) {
   });
   window.addEventListener('unload', () => {
     remove(newMessageRef);
+
 
   });
 }
@@ -200,5 +198,4 @@ function verifyImplode() {
 export function deleteChat() {
   const referencia = ref(database, linkAtualRecebido);
   remove(referencia);
-  window.location.href = 'https://ti0aly.github.io/implode';
 } 
