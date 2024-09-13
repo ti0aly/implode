@@ -79,9 +79,7 @@ function turnUpperLower() {
     });
 }
 
-
 function sendMessage(linkAtual) {
-
     let msg = document.getElementById('my-msg').value;
     if (msg != '') {
         addMessage(msg, myId, linkAtual);        
@@ -89,8 +87,7 @@ function sendMessage(linkAtual) {
     document.getElementById('my-msg').value = '';
 }
 
-  // Função para selecionar um emoji aleatório
-  function emojiAleatorio() {
+function emojiAleatorio() {
     const randomIndex = Math.floor(Math.random() * emojis.length);
     return emojis[randomIndex];
-  }  
+}  

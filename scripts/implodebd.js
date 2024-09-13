@@ -92,8 +92,6 @@ export async function addMessage(message, myId, link) {
   myMsgs.push(key);
 }
 
-
-
 export function startSession() {
   const sessionId1 = generateRandomId(); 
   const sessionId2 = generateRandomId();
@@ -146,7 +144,6 @@ setTimeout(function() {
 setTimeout(function() {
   const connectionsLink = linkAtualRecebido + "connections/" 
   const connectionsRef = ref(database, connectionsLink);
-
   onValue(connectionsRef, (snapshot) => {
     const numConnections = snapshot.size;
     let childDataActive = '';
@@ -166,8 +163,6 @@ export async function addConnection(myId, link) {
   });
   window.addEventListener('unload', () => {
     remove(newMessageRef);
-
-
   });
 }
 
@@ -178,14 +173,8 @@ function verifyImplode() {
     msgKeysDeleted.push(implodeNowKey);
     msgKeysPrinted = msgKeysPrinted.filter(item => item !== implodeNowKey);
     document.getElementById(implodeNowKey).innerText = ' 💥 MSG IMPLODED 💥 ';
-
   }
 }
-
-export function deleteChat() {
-  const referencia = ref(database, linkAtualRecebido);
-  remove(referencia);
-} 
 
 export function addPassWord(password) {
   const messageRef = ref(database, linkAtualRecebido + 'pass/');
@@ -206,7 +195,6 @@ export async function readPassword(password) {
       if (valor != password) {
         incorrectPassword();        
       } 
-
     } else {
       console.log("Nenhum dado disponível nesse nó.");
     }
