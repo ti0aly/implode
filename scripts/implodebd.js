@@ -66,7 +66,6 @@ function printMsg(mensagem, chave, idMensagem) {
     msgContainer.appendChild(showNewMsg);
     screen.appendChild(msgContainer);
     screen.scrollTop = screen.scrollHeight;
-    console.log('chave: dentro do printmsg: ', chave);
     }
     verifyImplode();
 }
@@ -75,12 +74,6 @@ function apagarMensagem(link, mensagemId) {
   // 'mensagens' caminho e 'mensagemId' ID da mensagem
   const mensagemRef = ref(database, `${link}/${mensagemId}`); 
   remove(mensagemRef)
-    .then(() => {
-      console.log("Mensagem removida com sucesso.");
-    })
-    .catch((error) => {
-      console.error("Erro ao remover a mensagem: ", error);
-    });
 }
 
 export async function addMessage(message, myId, link) {
@@ -100,11 +93,7 @@ export function startSession() {
   const sessionRef = ref(database, 'chats/' + sessionId);
   set(sessionRef, {
     message: 'startChat!'
-  }).then(() => {
-    console.log('Dados adicionados ao nó da sessão com ID:', sessionId );
-  }).catch((error) => {
-    console.error('Erro ao adicionar dados:', error);
-  });
+  })
   return link;
 }
 
@@ -131,7 +120,6 @@ export async function verificarNodeExistente(caminhoNode) {
 
 setTimeout(function() {
   const connectedRef = ref(database, linkAtualRecebido);
-  console.log('connections: ', linkAtualRecebido);
   onValue(connectedRef, (snap) => {
     if (snap.val() === true) {
       const conRef = push(ref(database, linkAtualRecebido));
@@ -189,9 +177,8 @@ export async function readPassword(password) {
     const snapshot = await get(child(dbRef, linkAtualRecebido + 'pass/'));
     if (snapshot.exists()) {
       const snap = snapshot.val();
-      console.log("snap: ", snap);
       const valor = snap['password'];
-      console.log("valor===password", valor===password);
+      console.log("password: ", valor===password);
       if (valor != password) {
         incorrectPassword();        
       } 

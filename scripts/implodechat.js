@@ -16,7 +16,7 @@ document.body.style.bottom = `0px`; // Fixa na posição atual
 document.querySelector('body').addEventListener('resize', function() { adjustHeight();});
 document.getElementById('delete-chat').addEventListener('click', function() {
     // enviar uma mensagem pro servidor pra derrubar os clientes
-    addMessage('bye', 'implode-this-chat-now', linkAtual);
+    addMessage('', 'implode-this-chat-now', linkAtual);
 });
 
 document.getElementById("send-msg").addEventListener('click', function(event) { 
@@ -43,42 +43,6 @@ function adjustHeight() {
     document.getElementById('body-content').style.height = '70%';
 }
 
-const inputField = document.getElementById("my-msg");
-const keys = document.querySelectorAll(".key");
-
-keys.forEach(key => {
-  key.addEventListener("click", () => {
-    const keyValue = key.textContent;
-    if (keyValue === "DEL") {
-        inputField.value = inputField.value.slice(0, -1);
-    } 
-    else if (keyValue === "ESP") {
-        inputField.value += " ";
-    } 
-    else if (keyValue === "⇪") {
-        turnUpperLower();
-    }
-    else {
-      inputField.value += keyValue;
-    }
-  });
-});
-
-function turnUpperLower() {
-    lowerUpper++
-    keys.forEach(key => {
-        if ((lowerUpper%2) === 0) {
-            key.textContent = key.textContent.toUpperCase();
-        } else {
-            if (key.textContent === "DEL" || key.textContent === "ESP") {
-            } 
-            else {
-                key.textContent = key.textContent.toLowerCase();
-            }
-        }
-    });
-}
-
 function sendMessage(linkAtual) {
     let msg = document.getElementById('my-msg').value;
     if (msg != '') {
@@ -91,3 +55,11 @@ function emojiAleatorio() {
     const randomIndex = Math.floor(Math.random() * emojis.length);
     return emojis[randomIndex];
 }  
+
+
+
+
+
+
+
+
