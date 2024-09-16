@@ -3,8 +3,7 @@
     "rules": "database.rules.json"
   },
   "hosting": {
-    "site": "implode",
-    "public": ".",
+    "public": "templates",
     "ignore": [
       "firebase.json",
       "**/.*",
