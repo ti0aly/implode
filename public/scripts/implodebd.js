@@ -49,7 +49,7 @@ function printMsg(mensagem, chave, idMensagem) {
     } 
     else if (idMensagem === 'implode-this-chat-now') {
       alert("💥 This chat has been imploded! 💥");
-      window.location.href = 'https://ti0aly.github.io/implode';
+      window.location.href = 'https://implode-1bc60.web.app/';
     }     
     else {
       msgContainer.classList.add('msg-on-screen');
@@ -205,5 +205,5 @@ export async function readPassword(password) {
 
 function incorrectPassword() {
   alert("💥 INCORRECT PASSWORD 💥");
-  window.location.href = 'https://ti0aly.github.io/implode';
+  window.location.href = 'https://implode-1bc60.web.app/';
 }

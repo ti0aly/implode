@@ -26,7 +26,7 @@ document.getElementById("send-msg").addEventListener('click', function(event) {
 
 const copyBtn = document.getElementById('copy-link');
 copyBtn.addEventListener('click', () => {
-    navigator.clipboard.writeText('https://ti0aly.github.io/implode/templates/implodechatclient.html?sala=' + linkAtual);
+    navigator.clipboard.writeText('https://implode-1bc60.web.app/implodechatclient.html?sala=' + linkAtual);
     password = prompt("Please set your password:");
     addPassWord(password);
     document.getElementById('my-msg').placeholder = 'PASTE LINK TO YOUR FRIEND';

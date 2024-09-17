@@ -5,7 +5,7 @@ const myId = emojiAleatorio();
 const queryString = window.location.search;
 const urlParams = new URLSearchParams(queryString);
 if (urlParams.size === 0) { alert('YOU NEED A VALID LINK');
-    window.location.href = 'https://ti0aly.github.io/implode';
+    window.location.href = 'https://implode-1bc60.web.app/';
 } 
     
 const linkAtual = urlParams.get('sala');
